@@ -1,0 +1,64 @@
+3.1.1.
+skypro=# CREATE TABLE city (
+skypro(# city_id INT PRIMARY KEY,
+skypro(# city_name VARCHAR(50) NOT NULL
+skypro(# );
+CREATE TABLE
+
+3.1.2.
+skypro=# ALTER TABLE employee
+skypro-# ADD COLUMN city_id integer;
+ALTER TABLE
+
+3.1.3.
+skypro=# ALTER TABLE employee ADD FOREIGN KEY (city_id)
+skypro-# REFERENCES city;
+ALTER TABLE
+
+3.1.4
+skypro=# INSERT INTO city (city_id, city_name) VALUES
+skypro-# (1, 'Berlin'),
+skypro-# (2, 'Moscow'),
+skypro-# (3, 'Rome'),
+skypro-# (4, ‘Dublin’),
+skypro-# (5, 'London');
+skypro=# UPDATE employee SET city_id = 1 WHERE last_name  = ‘Danilov’;
+skypro=# UPDATE employee SET city_id = 2 WHERE last_name  = ‘Danilova’;
+skypro=# UPDATE employee SET city_id = 3 WHERE last_name  = ‘Ivanova’;
+skypro=# UPDATE employee SET city_id = 4 WHERE last_name  = ‘Petrovich’;
+skypro=# UPDATE employee SET city_id = 5 WHERE last_name  = ‘Petrovna’;
+
+3.2.1
+skypro=# SELECT employee.first_name, employee.last_name, city.city_name
+skypro-# FROM employee
+skypro-# INNER JOIN city
+skypro-# ON employee.city_id = city.city_id;
+
+3.2.2
+skypro=# INSERT INTO employee (first_name, last_name, gender, age) VALUES
+skypro-# ('Ivan', 'Ivanov', 'man', 20),
+skypro-# ('Sveta', 'Petrova', 'woman', 24);
+
+skypro=# SELECT employee.first_name, employee.last_name, city.city_name
+skypro-# FROM employee
+skypro-# LEFT JOIN city
+skypro-# ON employee.city_id = city.city_id;
+
+3.2.3
+skypro=# INSERT INTO city (city_id, city_name) VALUES
+skypro-# (7, 'St Petersburg'),
+skypro-# (8, 'Minsk');
+
+skypro=# SELECT city.city_name, employee.first_name
+skypro-# FROM employee
+skypro-# FULL OUTER JOIN city
+skypro-# ON employee.city_id = city.city_id;
+
+3.2.4
+skypro=# SELECT employee.first_name, city.city_name
+skypro-# FROM employee CROSS JOIN city;
+
+3.2.5
+skypro=# SELECT city_name FROM city
+skypro-# LEFT JOIN employee ON city.city_id = employee.city_id
+skypro-# WHERE first_name is null;
